@@ -1,27 +1,39 @@
 from django.shortcuts import render
 from .models import Questions,MultipleAnswers
-from .serializers import QuestionsSerializer,MultipleAnswersSerializer
+from .serializers import QuestionsSerializer,MultipleAnswersSerializer,UserRegister
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.core.mail import send_mail
 from django.core.mail import EmailMessage
+from rest_framework.decorators import api_view,permission_classes
+from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 
-# Create your views here.
-# @5PuzdzVDKZdq5nfkp
-from rest_framework.decorators import api_view, renderer_classes
-from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 from config import EMAILTO
 
-@api_view()
-def send_email(request):
-    msg = EmailMessage('Quiz Score',
-                       'Here is the message.', to=[EMAILTO])
-    msg.send()
-    return Response({"message":'sended'})
+# Create your views here.
+
+
+class RegisterView(APIView):
+    def post(self,request,format=None):
+        serializer=UserRegister(data=request.data)
+        data={}
+        if serializer.is_valid():
+            account=serializer.save()
+            data['response']='registered'
+            data['username']=account.username
+            data['email']=account.email
+            token,create=Token.objects.get_or_create(user=account)
+            data['token']=token.key
+        else:
+            data=serializer.errors
+        return Response(data)
+
+
 
 class QuestionAnswerView(APIView):
-    # permission_classes=[IsAdminUser]
+    permission_classes=[IsAuthenticated]
     def get(self, request,num):
         questions = Questions.objects.get(questionNumber=num)
         answer = MultipleAnswers.objects.get(questionsId=questions.id)
@@ -34,5 +46,10 @@ class QuestionAnswerView(APIView):
         return Response(data)
 
 
-
-
+@api_view()
+@permission_classes([IsAuthenticated])
+def send_email(request):
+    msg = EmailMessage('Quiz Score',
+                       'Here is the message.', to=[EMAILTO])
+    msg.send()
+    return Response({"message":'sended'})

@@ -2,6 +2,7 @@ from enum import unique
 from django.db import models
 
 # Create your models here.
+from django.contrib.auth.models import User
 
 ANSWER=(
     ('option1','option1'),
@@ -9,6 +10,10 @@ ANSWER=(
     ('option3','option3'),
     ('option4','option4'),
 )
+
+User._meta.get_field('email')._unique = True
+User._meta.get_field('email').blank = False
+User._meta.get_field('email').null = False
 
 class Questions(models.Model):
     questionNumber = models.IntegerField(unique=True)
