@@ -17,7 +17,9 @@ from config import EMAILTO
 
 class RegisterView(APIView):
     def post(self,request,format=None):
+        print(request.data)
         serializer=UserRegister(data=request.data)
+
         data={}
         if serializer.is_valid():
             account=serializer.save()
