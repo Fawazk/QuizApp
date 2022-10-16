@@ -15,6 +15,7 @@ export default function Home() {
     if (!token) {
       navigate('/login');
     }
+    localStorage.setItem('mark', 0)
   }, []);
 
   return (
@@ -32,7 +33,7 @@ export default function Home() {
           <Typography variant={'h1'} align={'center'} color={'white'}>
             WELCOME
           </Typography>
-          <Button color="error" variant="contained" >ENTER TO START QUIZ</Button>
+          <Button color="error" variant="contained" onClick={()=>{navigate('/question');}} >ENTER TO START QUIZ</Button>
         </Grid>
 
       </Grid>

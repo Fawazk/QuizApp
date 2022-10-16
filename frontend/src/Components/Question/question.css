@@ -1,0 +1,17 @@
+.Answer:hover {
+    background-color: azure;
+}
+.Answer{
+    margin: 1%;
+}
+.counter{
+    padding: 1%;
+    background-color: aliceblue;
+    border-color: black;
+    margin-top: 1%;
+}
+.left{
+    background-color: lightblue;
+    padding: 1%;
+    margin: 1%;
+}

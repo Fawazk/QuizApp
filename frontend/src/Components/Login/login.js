@@ -45,6 +45,7 @@ export default function Login() {
         if(token) {
           navigate('/');
         }
+        localStorage.setItem('mark', 0)
       },[]);
 
     return (

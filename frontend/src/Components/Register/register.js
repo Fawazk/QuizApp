@@ -59,6 +59,7 @@ export default function Register() {
         if(token) {
           navigate('/');
         }
+        localStorage.setItem('mark', 0)
       },[]);
 
     return (
