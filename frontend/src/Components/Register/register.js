@@ -6,61 +6,60 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {registerSubmit} from '../../apiCalls/axios'
+import { registerSubmit } from '../../apiCalls/axios'
 import Alert from '@mui/material/Alert';
 import { useNavigate } from 'react-router-dom';
 
 
 const theme = createTheme();
 export default function Register() {
-    const [alerts,setAlert] = useState('');
+    const [alerts, setAlert] = useState('');
     const navigate = useNavigate()
 
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        if (data.get('username')===''){
+        if (data.get('username') === '') {
             setAlert('username is required')
             console.log(alerts)
         }
-        else if (data.get('email')===''){
+        else if (data.get('email') === '') {
             setAlert('email is required')
             console.log(alerts)
         }
-        else if(data.get('password')===''){
+        else if (data.get('password') === '') {
             setAlert('password feild is required')
             console.log(alerts)
         }
-        else if(data.get('password2')===''){
+        else if (data.get('password2') === '') {
             setAlert('Confirm password feild is required')
             console.log(alerts)
         }
-        else if(data.get('password2')!== data.get('password')){
+        else if (data.get('password2') !== data.get('password')) {
             setAlert('Both passwords are not same')
             console.log(alerts)
         }
-        else{
-        const formdata={}
-        formdata.username = data.get('username')
-        formdata.email= data.get('email')
-        formdata.password= data.get('password')
-        formdata.password2= data.get('password2')
-        registerSubmit(formdata).then((authdata)=>{
-            localStorage.setItem('token',authdata.token)
-            // localStorage.setItem("user", JSON.stringify(authdata.username))
-            navigate('/')
-        })
-      }
+        else {
+            const formdata = {}
+            formdata.username = data.get('username')
+            formdata.email = data.get('email')
+            formdata.password = data.get('password')
+            formdata.password2 = data.get('password2')
+            registerSubmit(formdata).then((authdata) => {
+                localStorage.setItem('token', authdata.token)
+                navigate('/')
+            })
+        }
     };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if(token) {
-          navigate('/');
+        if (token) {
+            navigate('/');
         }
         localStorage.setItem('mark', 0)
-      },[]);
+    }, []);
 
     return (
         <div><ThemeProvider theme={theme}>
@@ -78,8 +77,8 @@ export default function Register() {
                         Sign Up
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                         {alerts ? <Alert className="mb-3" severity="error">{alerts}</Alert> : ''}
-                    <TextField
+                        {alerts ? <Alert className="mb-3" severity="error">{alerts}</Alert> : ''}
+                        <TextField
                             margin="normal"
                             required
                             fullWidth
@@ -99,7 +98,7 @@ export default function Register() {
                             autoComplete="email"
                             autoFocus
                         />
-                        
+
                         <TextField
                             margin="normal"
                             required
@@ -108,7 +107,7 @@ export default function Register() {
                             label="Password"
                             type="password"
                             id="password"
-                            
+
                         />
                         <TextField
                             margin="normal"
@@ -118,7 +117,7 @@ export default function Register() {
                             label="Confirm Password"
                             type="password"
                             id="password2"
-                            
+
                         />
                         <Button
                             type="submit"

@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import Button from '@mui/material/Button';
 import { Box, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -36,7 +35,6 @@ export default function Question() {
                 setAnswer(data.answers);
                 setTotalQuestions(data.questionscount)
                 setCounter(data.question.allowedtime)
-                // setCounter(5)
             })
         }
     }
@@ -174,7 +172,6 @@ export default function Question() {
                         }
                     </Box>
                 }
-                {/* <Button color="success" variant="contained" onClick=''>Enter to next Question</Button> */}
 
 
             </Grid>

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {loginSubmit} from '../../apiCalls/axios'
+import { loginSubmit } from '../../apiCalls/axios'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -34,7 +34,6 @@ export default function Login() {
             formdata.password = data.get('password')
             loginSubmit(formdata).then((authdata) => {
                 localStorage.setItem('token', authdata.token)
-                // localStorage.setItem("user", JSON.stringify(authdata.username))
                 navigate('/')
             })
         }
@@ -42,11 +41,11 @@ export default function Login() {
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        if(token) {
-          navigate('/');
+        if (token) {
+            navigate('/');
         }
         localStorage.setItem('mark', 0)
-      },[]);
+    }, []);
 
     return (
         <div>
@@ -73,7 +72,7 @@ export default function Login() {
                                 label="Username"
                                 name="username"
                                 autoComplete="username"
-                                
+
                             />
                             <TextField
                                 margin="normal"
@@ -83,7 +82,7 @@ export default function Login() {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                
+
                             />
                             <Button
                                 type="submit"
