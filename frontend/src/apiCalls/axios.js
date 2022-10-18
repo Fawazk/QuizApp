@@ -3,17 +3,18 @@ import axios from 'axios';
 
 
 let BASE_URL = 'http://127.0.0.1:8000/'
-const token = localStorage.getItem('token');
 
-export const setAxiosAuthToken =()=> {
+export const setAxiosAuthToken = (token) => {
     if (typeof token !== "undefined" && token) {
-      // Apply for every request
-      axios.defaults.headers.common["Authorization"] = "Token " + token;
+        const atoken = "Token " + token
+        console.log(atoken)
+        // Apply for every request
+        axios.defaults.headers.common["Authorization"] = atoken;
     } else {
-      // Delete auth header
-      delete axios.defaults.headers.common["Authorization"];
+        // Delete auth header
+        delete axios.defaults.headers.common["Authorization"];
     }
-  };
+};
 
 
 export const registerSubmit = (formdata) => {
@@ -36,16 +37,11 @@ export const loginSubmit = (formdata) => {
 
 
 export const getQuestion = (number) => {
-    
-    setAxiosAuthToken()
+    const token = localStorage.getItem('Token');
+    setAxiosAuthToken(token)
     console.log(number)
     return new Promise(async (resolve, reject) => {
         await axios.get(BASE_URL + 'question-answer/' + number
-        , {
-            headers: {
-                'Authorization': token
-            }
-        }
         ).then((data) => {
             console.log(data.data, 'data')
             resolve(data.data)
@@ -56,14 +52,11 @@ export const getQuestion = (number) => {
 
 
 export const sendEmail = (markData) => {
-    setAxiosAuthToken()
+    const token = localStorage.getItem('Token');
+    setAxiosAuthToken(token)
     return new Promise(async (resolve, reject) => {
-        await axios.get(BASE_URL + 'send-email?mark='+markData.mark+'&totalQuestions='+markData.totalQuestions,
-        {
-            headers: {
-                'Authorization': token
-            }
-        }
+        await axios.get(BASE_URL + 'send-email?mark=' + markData.mark + '&totalQuestions=' + markData.totalQuestions,
+        { headers: { "Authorization": "Token "+token } }
         )
     })
 }

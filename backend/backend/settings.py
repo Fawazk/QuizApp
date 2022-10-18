@@ -41,9 +41,8 @@ INSTALLED_APPS = [
     'rest_framework',
     "corsheaders",
     'quizApp',
-    'rest_framework.authtoken',
+    'rest_framework.authtoken'
 ]
-
 
 
 MIDDLEWARE = [
@@ -142,3 +141,11 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = EMAIL
 EMAIL_HOST_PASSWORD = PASSWORD
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

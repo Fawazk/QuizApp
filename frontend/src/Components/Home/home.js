@@ -11,7 +11,7 @@ export default function Home() {
   
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('Token');
     if (!token) {
       navigate('/login');
     }

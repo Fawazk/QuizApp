@@ -54,7 +54,6 @@ def send_email(request):
     mark = request.GET.get('mark')
     totalQuestions = request.GET.get('totalQuestions')
     user = request.user
-    print(user)
     msg = EmailMessage('Quiz Score',
                        f'Congratulations your score{mark}/{totalQuestions}', to=[user.email])
     msg.send()

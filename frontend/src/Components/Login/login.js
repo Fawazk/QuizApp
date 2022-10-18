@@ -33,14 +33,14 @@ export default function Login() {
             formdata.username = data.get('username')
             formdata.password = data.get('password')
             loginSubmit(formdata).then((authdata) => {
-                localStorage.setItem('token', authdata.token)
+                localStorage.setItem('Token', authdata.token)
                 navigate('/')
             })
         }
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('Token');
         if (token) {
             navigate('/');
         }

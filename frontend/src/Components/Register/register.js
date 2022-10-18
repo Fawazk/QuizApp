@@ -47,14 +47,14 @@ export default function Register() {
             formdata.password = data.get('password')
             formdata.password2 = data.get('password2')
             registerSubmit(formdata).then((authdata) => {
-                localStorage.setItem('token', authdata.token)
+                localStorage.setItem('Token', authdata.token)
                 navigate('/')
             })
         }
     };
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('Token');
         if (token) {
             navigate('/');
         }

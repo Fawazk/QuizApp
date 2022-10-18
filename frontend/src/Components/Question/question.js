@@ -72,7 +72,7 @@ export default function Question() {
     }, [counter]);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('Token');
         if (!token) {
             navigate('/login');
         } else {
